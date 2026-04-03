@@ -11,7 +11,7 @@ resource "aws_instance" "instance" {
 resource "aws_security_group" "demo-sg" {
   name        = "demo-sg"
   description = "Allow TLS inbound traffic and all outbound traffic"
-  vpc_id      = "vpc-0754bd2ca3c3356c6"
+  #vpc_id      = module.VPC.vpc_id
 
   tags = {
     Name = "${var.project_name}-demo-sg"
