@@ -10,7 +10,7 @@ resource "aws_instance" "instance" {
 resource "aws_security_group" "demo1-sg" {
   name        = "demo1-sg"
   description = "Allow TLS inbound traffic and all outbound traffic"
-  vpc_id      = "default"
+  vpc_id      = data.aws_vpc.default.id
 
   tags = {
     Name = "${var.project_name}-demo1-sg"
