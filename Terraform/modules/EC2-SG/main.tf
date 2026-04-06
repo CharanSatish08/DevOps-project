@@ -1,7 +1,7 @@
 resource "aws_instance" "instance" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  security_groups = ["demo1-sg"]
+  security_groups = [aws_security_group.demo1-sg.id]
   key_name = "devops"
   tags = {
     Name = "${var.project_name}-instance"
