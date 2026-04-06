@@ -1,7 +1,7 @@
 resource "aws_instance" "instance" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  security_groups = [aws_security_group.demo1-sg.id]
+  security_groups = [aws_security_group.demo1-sg.name]
   key_name = "devops"
   tags = {
     Name = "${var.project_name}-instance"
@@ -10,7 +10,7 @@ resource "aws_instance" "instance" {
 resource "aws_security_group" "demo1-sg" {
   name        = "demo1-sg"
   description = "Allow TLS inbound traffic and all outbound traffic"
-  #vpc_id      = module.VPC.vpc_id
+  vpc_id      = "default"
 
   tags = {
     Name = "${var.project_name}-demo1-sg"
