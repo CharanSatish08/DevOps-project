@@ -1,3 +1,7 @@
+data "aws_vpc" "default" {
+  default = true
+}
+
 resource "aws_instance" "instance" {
   ami           = var.ami_id
   instance_type = var.instance_type
