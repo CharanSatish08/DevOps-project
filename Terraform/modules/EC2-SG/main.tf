@@ -1,24 +1,24 @@
 resource "aws_instance" "instance" {
   ami           = var.ami_id
   instance_type = var.instance_type
-  security_groups = ["demo-sg"]
-  for_each = toset([ "Jenkins-master", "Jenkins-slave" ])
+  security_groups = ["demo1-sg"]
+  key_name = "devops"
   tags = {
-    Name = "${each.key}-instance"
+    Name = "${var.project_name}-instance"
   }
 }
-resource "aws_security_group" "demo-sg" {
-  name        = "demo-sg"
+resource "aws_security_group" "demo1-sg" {
+  name        = "demo1-sg"
   description = "Allow TLS inbound traffic and all outbound traffic"
   #vpc_id      = module.VPC.vpc_id
 
   tags = {
-    Name = "${var.project_name}-demo-sg"
+    Name = "${var.project_name}-demo1-sg"
   }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
-  security_group_id = aws_security_group.demo-sg.id
+  security_group_id = aws_security_group.demo1-sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = var.from_port
   ip_protocol       = "tcp"
@@ -26,7 +26,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
-  security_group_id = aws_security_group.demo-sg.id
+  security_group_id = aws_security_group.demo1-sg.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
