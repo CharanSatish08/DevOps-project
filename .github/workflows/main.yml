@@ -11,18 +11,20 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v2
 
-            - name: Maven test
-              run: mvn test
-
-            - name: Maven checkstyle
-              run: mvn checkstyle:checkstyle
-
-            
             - name: Set up JDK 17
               uses: actions/setup-java@v4
               with:
                 distribution: temurin
                 java-version: '17'
+
+            - name: Build with Maven
+              run: mvn clean install
+            
+            - name: Maven test
+              run: mvn test
+
+            - name: Maven checkstyle
+              run: mvn checkstyle:checkstyle
 
             - name: Setup Sonar-scanner
               uses: warchant/setup-sonar-scanner@v7
@@ -37,7 +39,7 @@ jobs:
                   -Dsonar.junit.reportPath=target/surefire-reports
                   -Dsonar.jacoco.reportPath=target/jacoco.exec
                   -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
-                  -Dsonar.java.binary=target/classes/com/visualpathit/account
+                  -Dsonar.java.binary=target/classes
             
             
             - name: Sonar Quality Gate
