@@ -7,7 +7,7 @@ resource "aws_instance" "instance" {
   instance_type = var.instance_type
   security_groups = [aws_security_group.demo1-sg.name]
   key_name = "devops"
-  for_each = ['Jenkins-master', 'Jenkins Slave', 'ansible']
+  for_each = ["Jenkins-master", "Jenkins Slave", "ansible"]
   tags = {
     Name = "${each.key}-instance"
   }
